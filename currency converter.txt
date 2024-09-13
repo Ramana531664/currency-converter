@@ -1,0 +1,97 @@
+#include <stdio.h>
+
+// Function prototypes
+void printMenu();
+float convertCurrency(float amount, float rate);
+
+int main() {
+    int fromCurrency, toCurrency;
+    float amount, convertedAmount;
+
+    // Exchange rates (example rates)
+    const float usdToEur = 0.85;
+    const float usdToGbp = 0.75;
+    const float eurToUsd = 1.18;
+    const float eurToGbp = 0.88;
+    const float gbpToUsd = 1.33;
+    const float gbpToEur = 1.14;
+
+    // Display menu
+    printMenu();
+
+    // Input: Select the currency to convert from
+    printf("Enter the number of the currency to convert from: ");
+    scanf("%d", &fromCurrency);
+
+    // Input: Select the currency to convert to
+    printf("Enter the number of the currency to convert to: ");
+    scanf("%d", &toCurrency);
+
+    // Input: Enter the amount to convert
+    printf("Enter the amount to convert: ");
+    scanf("%f", &amount);
+
+    // Conversion logic
+    switch (fromCurrency) {
+        case 1: // USD
+            switch (toCurrency) {
+                case 2: // EUR
+                    convertedAmount = convertCurrency(amount, usdToEur);
+                    break;
+                case 3: // GBP
+                    convertedAmount = convertCurrency(amount, usdToGbp);
+                    break;
+                default:
+                    printf("Invalid target currency.\n");
+                    return 1;
+            }
+            break;
+        case 2: // EUR
+            switch (toCurrency) {
+                case 1: // USD
+                    convertedAmount = convertCurrency(amount, eurToUsd);
+                    break;
+                case 3: // GBP
+                    convertedAmount = convertCurrency(amount, eurToGbp);
+                    break;
+                default:
+                    printf("Invalid target currency.\n");
+                    return 1;
+            }
+            break;
+        case 3: // GBP
+            switch (toCurrency) {
+                case 1: // USD
+                    convertedAmount = convertCurrency(amount, gbpToUsd);
+                    break;
+                case 2: // EUR
+                    convertedAmount = convertCurrency(amount, gbpToEur);
+                    break;
+                default:
+                    printf("Invalid target currency.\n");
+                    return 1;
+            }
+            break;
+        default:
+            printf("Invalid source currency.\n");
+            return 1;
+    }
+
+    // Output: Display the converted amount
+    printf("Converted amount: %.2f\n", convertedAmount);
+
+    return 0;
+}
+
+// Function to display the currency menu
+void printMenu() {
+    printf("Currency Converter Menu:\n");
+    printf("1. USD - US Dollar\n");
+    printf("2. EUR - Euro\n");
+    printf("3. GBP - British Pound\n");
+}
+
+// Function to convert currency
+float convertCurrency(float amount, float rate) {
+    return amount * rate;
+}
